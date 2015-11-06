@@ -1,0 +1,70 @@
+<?php TPL::output('admin/global/header.tpl.htm'); ?>
+<?php TPL::output('admin/global/nav_menu.tpl.htm'); ?>
+
+<script src="<?php echo $import_js; ?>?v=<?php echo G_VERSION_BUILD; ?>" type="text/javascript"></script>
+
+<div class="right-side aw-content-wrap">
+	<div class="aw-box aw-box-row data_import mod">
+		<div class="mod-head"><h3 style="line-height:44px;">数据批量导入</h3></div>
+            <div class="mod-body">
+            <div class="tab-pane">
+                <form id="form_upload_data" action="admin/data_import/upload_and_import/" method="post" enctype="multipart/form-data" >
+                    <table class="table table-striped">
+                        <input type="hidden" name="action" value="upload_data_file" />
+                        <thead>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>
+                                <input type="hidden" name="max_file_size" value="1000000">
+                                <h4>上传问答数据文件</h4>
+                                </td>
+                                <td>
+                                <input name="datafile" type="file" size="40" style="display: inline-block;" />
+                                    请确认传入Excel 2003格式的文件. 点击这里获取
+                                <a href="<?php echo get_setting('upload_url'); ?>/data_import/data_import_demo.xlsx" style="color:#428bca;">示例文件</a>
+
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <h4>是否清空现有数据</h4>
+                                </td>
+                                <td>
+                                   [ 如选择，所有现有问答数据将被删除。 请慎重考虑 !!! ] <input type="checkbox" name="is_clear_old_data">
+                               </td>
+                           </tr>
+                           <tr>
+                            <td>
+                                <h4>是否替换现有相同问题</h4>
+                            </td>
+                            <td>
+                                [ 导入时，将删除现有相同问题 ] <input type="checkbox" checked="true"  name="is_delete_same_question">
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <h4>问答加入的时间段</h4>
+                            </td>
+                            <td>
+                                <input type="text" value="<?php echo date('Y-m-d', strtotime('Last month')); ?>" name="add_time_start" class="input-small date_picker" /> -
+                               <input type="text" value="<?php echo date('Y-m-d', strtotime('Today')); ?>" name="add_time_end" class="input-small date_picker" />
+                           </td>
+                       </tr>
+                   </tbody>
+               </table>
+               <div class="mod-table-foot">
+                 <input class="btn btn-primary center-block" type="submit" value="开始处理">
+             </div>
+            </form>
+               </div>
+            </div>
+            <?php if($this->error_msg){ ?>
+            <div class="error_msg" style="background: none repeat scroll 0 0 #F6E3E3;text-align:center;font-size:16px;padding:5px;">
+                <?php echo $this->error_msg; ?>
+            </div>
+            <?php } ?>
+        </div>
+    </div>
+</div>
+
